@@ -1,6 +1,6 @@
-# Toolshop AQA Tests
+# Тесты Toolshop AQA
 
-Automated UI and API tests for Practice Software Testing - Toolshop.
+Автоматизированные тесты пользовательского интерфейса и API для практического тестирования программного обеспечения — Toolshop.
 
 ## Stack
 
@@ -12,7 +12,61 @@ Automated UI and API tests for Practice Software Testing - Toolshop.
 - Pydantic
 - Ruff
 
-## Run tests
+Сейчас реализованы UI-тесты на pytest и Playwright. API-тесты и интеграция остальных инструментов будут добавляться по мере развития проекта.
+
+## Запуск тестов
 
 ```bash
 pytest
+```
+
+## Что реализовано
+
+- Настроены проект, виртуальное окружение и запуск тестов через pytest.
+- Базовый адрес приложения вынесен в `pytest.ini`.
+- Добавлен smoke-тест главной страницы.
+- Создан Page Object `HomePage` с локаторами и действиями поиска.
+- Добавлена общая фикстура `home_page` в `conftest.py`.
+- Реализован тест поиска товара `Combination Pliers`:
+  - открытие главной страницы;
+  - ввод запроса и запуск поиска;
+  - ожидание контейнера результатов с `data-test="search_completed"`;
+  - проверка, что найден ровно один товар с ожидаемым названием.
+- Настроен `.gitignore`.
+- Проект опубликован на GitHub.
+
+## Структура проекта
+
+```text
+pages/
+    home_page.py
+tests/
+    ui/
+        test_home_page.py
+        test_search.py
+conftest.py
+pytest.ini
+```
+
+## Дополнительные команды запуска
+
+Только тест поиска:
+
+```bash
+python -m pytest tests/ui/test_search.py
+```
+
+UI-тесты с отображением браузера:
+
+```bash
+python -m pytest tests/ui --headed
+```
+
+## Следующие шаги
+
+- Зафиксировать зависимости и добавить инструкцию установки.
+- Добавить API-тесты.
+- Добавить валидацию ответов API через Pydantic.
+- Настроить отчеты Allure.
+- Настроить проверку кода через Ruff.
+- Добавить запуск тестов в GitHub Actions.
